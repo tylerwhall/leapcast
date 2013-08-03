@@ -15,6 +15,7 @@ from leapcast.apps.default import *
 from leapcast.services.rest import *
 from leapcast.services.ssdp import LeapUPNPServer
 from leapcast.services.websocket import *
+from leapcast.browsers.chrome import Chrome
 
 
 class HTTPThread(object):
@@ -52,7 +53,7 @@ class HTTPThread(object):
 
     def register_app(self, app):
         name = app.__name__
-        return (r"(/apps/" + name + "|/apps/" + name + ".*)", app)
+        return (r"(/apps/" + name + "|/apps/" + name + ".*)", app, {'browser' : Chrome})
 
     def sig_handler(self, sig, frame):
         tornado.ioloop.IOLoop.instance().add_callback(self.shutdown)
